@@ -8,5 +8,8 @@
 
 import Foundation
 
-print("Hello, World!")
+let username = readLine()
+let service = GithubService()
+service.fetchReposWith(username: username!)
+
 
