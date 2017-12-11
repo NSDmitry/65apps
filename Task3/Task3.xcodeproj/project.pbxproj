@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		844E9FFD1FDE71800057C019 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84715CDB1FDDD68A00BD979F /* Alamofire.framework */; };
 		84715CC91FDDC9DA00BD979F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84715CC81FDDC9DA00BD979F /* main.swift */; };
 		84715CE21FDDDE1000BD979F /* GithubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84715CE11FDDDE1000BD979F /* GithubService.swift */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844E9FFD1FDE71800057C019 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
