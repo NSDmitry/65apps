@@ -55,9 +55,6 @@ class Task4Tests: XCTestCase {
         }
     }
     
-    // Длина от 3 до 32, латиница, цифры, минус, точка
-    // Не может начинаться на точку, цифру, минус
-    
     func testUsernames() {
         let validUsernames = ["BestNameEver", "PrettyinPink", "Saphireflames", "Miss.Sporty135", "Selena1", "dsa-"]
         let invalidUsernames = ["Beautiful Liar", "ki$$ntell", "JosieandthepussycatsJosieandthepussycatsJosieandthepussycats", "11HannaH"]
