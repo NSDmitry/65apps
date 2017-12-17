@@ -26,7 +26,7 @@ class Validator {
     private static let invalidateFirstCharacters = ".-0987654321"
     private static let validateCharacters = "0987654321" + "qwertyuiopasdfghjklzxcvbnm" + "QWERTYUIOPASDFGHJKLZXCVBNM" + "-."
     
-    class func valid(username: String) ->  ValidResponse {
+    static func valid(username: String) ->  ValidResponse {
         guard validateCount(username: username) else {
             return ValidResponse(error: ValidateError.count, status: false)
         }
@@ -49,7 +49,7 @@ class Validator {
         return ValidResponse(error: nil, status: true)
     }
     
-    private class func validateLogin(username: String) -> Bool {
+    private static func validateLogin(username: String) -> Bool {
         let set = CharacterSet(charactersIn: username)
         let validSet = CharacterSet(charactersIn: validateCharacters)
         if validSet.isSuperset(of: set) {
@@ -59,7 +59,7 @@ class Validator {
         }
     }
     
-    private class func validateEmail(username: String) -> Bool {
+    private static func validateEmail(username: String) -> Bool {
         let regRFC5322 = "(?:[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}" +
             "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
             "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[\\p{L}0-9](?:[a-" +
