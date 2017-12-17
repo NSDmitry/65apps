@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
     }
     
     func downloadImage(withURL url: URL, forCell cell: UITableViewCell) {
@@ -30,6 +31,10 @@ class ViewController: UIViewController {
             }
         })
     }
+    
+    fileprivate func url(with indexPath: IndexPath) -> URL {
+        return URL(string: baseURL + "\(indexPath.row + 1)")!
+    }
 }
 
 extension ViewController: UITableViewDataSource {
@@ -38,11 +43,15 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! Cell
-        let url = URL(string: baseURL + "\(indexPath.row + 1)")!
-        downloadImage(withURL: url, forCell: cell)
-        
-        return cell
+        return tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! Cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? Cell else { return }
+        let imageUrl = url(with: indexPath)
+        downloadImage(withURL: imageUrl, forCell: cell)
     }
 }
 
