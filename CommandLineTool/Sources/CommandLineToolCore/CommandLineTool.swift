@@ -11,6 +11,10 @@ public final class CommandLineTool {
     }
     
     public func run() throws {
+        print("Write github user: ")
+        let runLoop = RunLoop.current
+        while (loop && runLoop.run(mode: .defaultRunLoopMode, before: .distantFuture)) {}
+        
         while let line = readLine() {
             let githubService = GithubService()
             githubService.fetchReposWith(username: line, completion: { githubResponse in
