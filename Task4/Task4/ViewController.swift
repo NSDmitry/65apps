@@ -11,11 +11,10 @@ import UIKit
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        let name = "dmitrygmail.com"
-        let validator = Validator(username: name)
-        let response = validator.valid()
-        if let error = response.error {
-            print(error.rawValue)
+        let name = "dmitry@gmail.com"
+        let validResponse = Validator.valid(username: name)
+        if let error = validResponse.error {
+            print("valid error = \(error.rawValue)")
             return
         }
         print("Validate ok")

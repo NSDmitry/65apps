@@ -9,7 +9,7 @@
 import Foundation
 
 enum ValidateError: String {
-    case email = "Некоррентный email"
+    case email = "Не коррентный email"
     case login = "Логин должен состоять из латинских букв, цифр, минуса и точки"
     case count = "Минимальная длина логина - 3 символа, максимальная - 32"
     case firstCharacter = "Логин не может начинаться на цифру, точку, минус"
@@ -20,34 +20,28 @@ struct ValidResponse {
     var status: Bool
 }
 
-struct Validator {
-    private let minCount = 3
-    private let maxCount = 32
-    private let invalidateFirstCharacters = ".-0987654321"
-    private let validateCharacters = "0987654321" + "qwertyuiopasdfghjklzxcvbnm" + "QWERTYUIOPASDFGHJKLZXCVBNM" + "-."
+class Validator {
+    private static let minCount = 3
+    private static let maxCount = 32
+    private static let invalidateFirstCharacters = ".-0987654321"
+    private static let validateCharacters = "0987654321" + "qwertyuiopasdfghjklzxcvbnm" + "QWERTYUIOPASDFGHJKLZXCVBNM" + "-."
     
-    private var username: String
-    
-    init(username: String) {
-        self.username = username
-    }
-    
-    func valid() ->  ValidResponse {
-        guard validateCount() else {  
+    class func valid(username: String) ->  ValidResponse {
+        guard validateCount(username: username) else {
             return ValidResponse(error: ValidateError.count, status: false)
         }
         
-        guard validateFirstCharacter() else {
+        guard validateFirstCharacter(username: username) else {
             return ValidResponse(error: ValidateError.firstCharacter, status: false)
         }
         
         
-        if isEmail() {
-            guard validateEmail() else { 
+        if isEmail(username: username) {
+            guard validateEmail(username: username) else {
                 return ValidResponse(error: ValidateError.email, status: false)
             }
         } else {
-            guard validateLogin() else {
+            guard validateLogin(username: username) else {
                 return ValidResponse(error: ValidateError.login, status: false)
             }
         }
@@ -55,7 +49,7 @@ struct Validator {
         return ValidResponse(error: nil, status: true)
     }
     
-    private func validateLogin() -> Bool {
+    private class func validateLogin(username: String) -> Bool {
         let set = CharacterSet(charactersIn: username)
         let validSet = CharacterSet(charactersIn: validateCharacters)
         if validSet.isSuperset(of: set) {
@@ -65,7 +59,7 @@ struct Validator {
         }
     }
     
-    private func validateEmail() -> Bool {
+    private class func validateEmail(username: String) -> Bool {
         let regRFC5322 = "(?:[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}" +
             "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
             "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[\\p{L}0-9](?:[a-" +
@@ -81,15 +75,15 @@ struct Validator {
         }
     }
     
-    private func validateCount() -> Bool {
+    private static func validateCount(username: String) -> Bool {
         return username.count > minCount && username.count < maxCount
     }
     
-    private func validateFirstCharacter() -> Bool {
+    private static func validateFirstCharacter(username: String) -> Bool {
         return !invalidateFirstCharacters.contains(username.first!)
     }
     
-    private func isEmail() -> Bool {
+    private static func isEmail(username: String) -> Bool {
         return username.contains("@")
     }
 }

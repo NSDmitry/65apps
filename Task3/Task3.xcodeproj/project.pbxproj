@@ -7,19 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		844E9FFD1FDE71800057C019 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84715CDB1FDDD68A00BD979F /* Alamofire.framework */; };
 		84715CC91FDDC9DA00BD979F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84715CC81FDDC9DA00BD979F /* main.swift */; };
 		84715CE21FDDDE1000BD979F /* GithubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84715CE11FDDDE1000BD979F /* GithubService.swift */; };
+		84BB7B661FDF12D000697089 /* Alamofire.framework.dSYM in Frameworks */ = {isa = PBXBuildFile; fileRef = 84BB7B651FDF12D000697089 /* Alamofire.framework.dSYM */; };
+		84BB7B671FDF12FF00697089 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84715CDB1FDDD68A00BD979F /* Alamofire.framework */; };
+		84BB7B681FDF132B00697089 /* Alamofire.framework.dSYM in Sources */ = {isa = PBXBuildFile; fileRef = 84BB7B651FDF12D000697089 /* Alamofire.framework.dSYM */; };
+		84BB7B691FDF132B00697089 /* Alamofire.framework in Sources */ = {isa = PBXBuildFile; fileRef = 84715CDB1FDDD68A00BD979F /* Alamofire.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		84715CC31FDDC9DA00BD979F /* CopyFiles */ = {
+		84715CC31FDDC9DA00BD979F /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = usr/share/man/man1;
 			dstSubfolderSpec = 0;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -29,6 +33,7 @@
 		84715CC81FDDC9DA00BD979F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		84715CDB1FDDD68A00BD979F /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 		84715CE11FDDDE1000BD979F /* GithubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService.swift; sourceTree = "<group>"; };
+		84BB7B651FDF12D000697089 /* Alamofire.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Alamofire.framework.dSYM; path = Carthage/Build/Mac/Alamofire.framework.dSYM; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				844E9FFD1FDE71800057C019 /* Alamofire.framework in Frameworks */,
+				84BB7B671FDF12FF00697089 /* Alamofire.framework in Frameworks */,
+				84BB7B661FDF12D000697089 /* Alamofire.framework.dSYM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +78,7 @@
 		84715CDA1FDDD68A00BD979F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84BB7B651FDF12D000697089 /* Alamofire.framework.dSYM */,
 				84715CDB1FDDD68A00BD979F /* Alamofire.framework */,
 			);
 			name = Frameworks;
@@ -86,7 +93,7 @@
 			buildPhases = (
 				84715CC11FDDC9DA00BD979F /* Sources */,
 				84715CC21FDDC9DA00BD979F /* Frameworks */,
-				84715CC31FDDC9DA00BD979F /* CopyFiles */,
+				84715CC31FDDC9DA00BD979F /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -135,6 +142,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84BB7B681FDF132B00697089 /* Alamofire.framework.dSYM in Sources */,
+				84BB7B691FDF132B00697089 /* Alamofire.framework in Sources */,
 				84715CE21FDDDE1000BD979F /* GithubService.swift in Sources */,
 				84715CC91FDDC9DA00BD979F /* main.swift in Sources */,
 			);
@@ -252,6 +261,7 @@
 		84715CCD1FDDC9DA00BD979F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NB36QXY3B4;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -266,6 +276,7 @@
 		84715CCE1FDDC9DA00BD979F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NB36QXY3B4;
 				FRAMEWORK_SEARCH_PATHS = (

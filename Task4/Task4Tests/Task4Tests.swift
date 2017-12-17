@@ -58,7 +58,7 @@ class Task4Tests: XCTestCase {
     func testUsernames() {
         let validUsernames = ["BestNameEver", "PrettyinPink", "Saphireflames", "Miss.Sporty135", "Selena1", "dsa-"]
         let invalidUsernames = ["Beautiful Liar", "ki$$ntell", "JosieandthepussycatsJosieandthepussycatsJosieandthepussycats", "11HannaH"]
-        
+
         validUsernames.forEach { name in 
             let validator = Validator(username: name)
             let response = validator.valid()
@@ -70,6 +70,5 @@ class Task4Tests: XCTestCase {
             let response = validator.valid()
             XCTAssertEqual(response.status, false, "\(name) - status - \(response.error?.rawValue ?? "")")
         }
-
     }
 }
