@@ -12,17 +12,15 @@ public final class CommandLineTool {
     
     public func run() throws {
         print("Write github user: ")
-        let runLoop = RunLoop.current
-        while (loop && runLoop.run(mode: .defaultRunLoopMode, before: .distantFuture)) {}
-        
+        let githubService = GithubService()
+
         while let line = readLine() {
-            let githubService = GithubService()
             githubService.fetchReposWith(username: line, completion: { githubResponse in
                 if let error = githubResponse.error {
                     print(error.rawValue)
                     return
                 }
-                githubResponse.response?.forEach {
+                githubResponse.repositories?.forEach {
                     print($0)
                 }
             })
@@ -40,29 +38,28 @@ enum ResponseError: String {
 
 struct GithubResponse {
     var error: ResponseError?
-    var response: [String]?
+    var repositories: [String]?
 }
 
 class GithubService { 
     func fetchReposWith(username: String, completion: @escaping ((GithubResponse) -> Void)) {
-        var repositories = [String]() 
-        
+        var repositories = [String]()
         let url = urlWith(username: username) 
-        Alamofire.request(url, method: .get).validate().responseJSON(completionHandler: { responce in  
-            if let error = responce.error { 
+        Alamofire.request(url, method: .get).validate().responseJSON(completionHandler: { response in  
+            if let error = response.error { 
                 switch error { 
                 case URLError.notConnectedToInternet: 
-                    completion(GithubResponse(error: ResponseError.internetConnection, response: nil))
+                    completion(GithubResponse(error: ResponseError.internetConnection, repositories: nil))
                 default: 
-                    completion(GithubResponse(error: ResponseError.unknowError, response: nil))
+                    completion(GithubResponse(error: ResponseError.unknowError, repositories: nil))
                 }
                 return
             } 
             
-            switch responce.result { 
+            switch response.result { 
             case .success(let value): 
                 guard let arr = value as? [[String: Any]] else {
-                    completion(GithubResponse(error: ResponseError.parseError, response: nil))
+                    completion(GithubResponse(error: ResponseError.parseError, repositories: nil))
                     return 
                 } 
                 
@@ -70,15 +67,14 @@ class GithubService {
                     if let name = $0["name"] as? String { 
                         repositories.append(name) 
                     } 
-                } 
-                
-                completion(GithubResponse(error: nil, response: repositories))
+                }
+                completion(GithubResponse(error: nil, repositories: repositories))
             case .failure:
-                if responce.response?.statusCode == 404 { 
+                if response.response?.statusCode == 404 { 
                     print(ResponseError.userNotFound.rawValue)
-                    completion(GithubResponse(error: ResponseError.userNotFound, response: nil))
+                    completion(GithubResponse(error: ResponseError.userNotFound, repositories: nil))
                 } else { 
-                    completion(GithubResponse(error: ResponseError.unknowError, response: nil))
+                    completion(GithubResponse(error: ResponseError.unknowError, repositories: nil))
                 }
             }
         }) 
