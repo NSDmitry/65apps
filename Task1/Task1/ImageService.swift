@@ -9,14 +9,17 @@
 import UIKit
 
 class ImageService {
+    
     let imageCache = NSCache<AnyObject, AnyObject>()
+    var tasks = [URL: URLSessionTask]()
     
     func fetchImage(url: URL, completion: @escaping (UIImage?) -> Void) {
         if let image = imageCache.object(forKey: url as AnyObject) as? UIImage {
             completion(image)
+            return
         }
         
-        URLSession.shared.dataTask(with: url, completionHandler: {(data, _, error) in
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, _, error) in
             if let error = error {
                 switch error {
                 case URLError.notConnectedToInternet:
@@ -24,12 +27,24 @@ class ImageService {
                 default:
                     print("Unknow error")
                 }
+                self.tasks[url] = nil
                 completion(nil)
+                return
             }
-            
-            let image = UIImage(data: data!)
-            self.imageCache.setObject(image!, forKey: url as AnyObject)
-            completion(image)
-        }).resume()
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                guard let image = UIImage(data: data) else { return }
+                self.imageCache.setObject(image, forKey: url as AnyObject)
+                completion(image)
+            }
+        })
+        task.resume()
+        tasks[url] = task
+    }
+    
+    func cancellTask(url: URL) {
+        guard let task = tasks[url] else { return }
+        task.cancel()
+        tasks[url] = nil
     }
 }

@@ -53,5 +53,9 @@ extension ViewController: UITableViewDelegate {
         let imageUrl = url(with: indexPath)
         downloadImage(withURL: imageUrl, forCell: cell)
     }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? Cell, cell.placeholderImageView.image != nil else { return }
+        imageService.cancellTask(url: url(with: indexPath))
+    }
 }
-
