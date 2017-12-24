@@ -1,0 +1,14 @@
+Объясните почему блок "Work 2" не выполняется?
+
+let serialQueue = DispatchQueue(label: "com.foo.bar")
+serialQueue.async { 
+	print("Work 1")
+	serialQueue.sync { 
+		print("Work 2") 
+	} 
+}
+
+При создании serialQueue используется инициализатор init(__label label: UnsafePointer<Int8>?) - по дефолту создается serial(последовательная) очередь.
+ Из нее нельзя вызвать несколько асинхронных методов.
+Для функционирования данного метода нужно использовать ининциализатор типа  
+let serialQueue = DispatchQueue(label: "com.foo.bar", attributes: .concurrent)
