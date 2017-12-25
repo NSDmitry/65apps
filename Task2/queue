@@ -8,7 +8,4 @@ serialQueue.async {
 	} 
 }
 
-При создании serialQueue используется инициализатор init(__label label: UnsafePointer<Int8>?) - по дефолту создается serial(последовательная) очередь.
- Из нее нельзя вызвать несколько асинхронных методов.
-Для функционирования данного метода нужно использовать ининциализатор типа  
-let serialQueue = DispatchQueue(label: "com.foo.bar", attributes: .concurrent)
+Important: You should never call the dispatch_sync or dispatch_sync_f function from a task that is executing in the same queue that you are planning to pass to the function. This is particularly important for serial queues, which are guaranteed to deadlock, but should also be avoided for concurrent queues.
